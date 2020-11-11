@@ -1,0 +1,70 @@
+body {
+    text-align: center;
+    color: #1e2022;
+}
+
+.login {
+    width: 100%;
+    max-width: 400px;
+    margin: 50px auto;
+    background: #f0f5f9;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3) ;
+}
+
+.form-signin {
+    width: 100%;
+    max-width: 330px;
+    padding: 15px;
+    margin: 0 auto;
+}
+
+
+hr {
+    border-style: none;
+    border-top-style: dotted;
+    border-color: grey;
+    border-width: 5px;
+    width: 5%;
+}
+
+h1, h2 {
+    font-family: 'Quicksand', sans-serif;
+    text-align: center;
+    
+}
+h1 {
+    font-size: 2.5rem
+}
+h2 {
+    font-size: 1rem
+}
+
+.listitem {
+    margin: 0;
+    padding: 5px;
+    font-size: 1em;
+    color: #52616b;
+}
+
+.todolist {
+    padding: .375rem .75rem;
+    flex: 1 1 auto;
+    max-width: 600px;
+    margin: 50px auto;
+    background: #f0f5f9;
+    border-radius: 5px;
+    box-shadow: 5px 5px 15px 5px rgba(0,0,0,0.3) ;
+
+}
+
+.done {
+    text-decoration: line-through;
+}
+
+.listtext::placeholder{
+    color: #1e2022;
+    opacity: 1;
+}
+
+
