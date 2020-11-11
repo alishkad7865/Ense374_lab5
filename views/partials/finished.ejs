@@ -1,0 +1,13 @@
+<!-- task you have claimed and finished -->
+<form action="/unfinish" method="POST">
+    <input type="hidden" name="username" value="<%= username %>">
+    <input type="hidden" id="taskId" name="taskId" value="<%= item._id %>">
+    <div class="input-group mb-3">
+        <div class="input-group-prepend">
+            <div class="input-group-text">
+                <input type="checkbox" checked onchange="this.form.submit()">
+            </div>
+        </div>
+        <input type="text" class="form-control done" disabled="true" placeholder="<%= item.name %>">
+    </div>
+</form>

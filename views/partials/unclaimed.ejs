@@ -1,0 +1,11 @@
+<!-- unclaimed task-->
+<form action="/claim" method="POST">
+    <input type="hidden" name="username" value="<%= username %>">
+    <input type="hidden" id="taskId" name="taskId" value="<%= item._id %>">
+    <div class="input-group mb-3">
+        <input type="text" class="form-control" disabled="true" placeholder="<%= item.name %>">
+        <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="submit">Claim</button>
+        </div>
+    </div>
+</form>

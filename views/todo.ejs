@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Todo List</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- Hamburger menu here-->
+    <!-- Main jumbotron for a primary marketing message or call to action -->
+    <div class="jumbotron">
+        <div class="container">
+            <h1>To do</h1>
+        </div>
+
+        <div class="login">
+            <div id="accordion">
+                <div class="card">
+                    <div class="card-header" id="headingThree">
+                        <h5 class="mb-0">
+                            <button class="btn btn-link" data-toggle="collapse" data-target="#collapseThree"
+                                aria-expanded="true" aria-controls="collapseThree">
+                                Logged in as <%= username %>
+                            </button>
+                        </h5>
+                    </div>
+
+                    <div id="collapseThree" class="collapse" aria-labelledby="headingOne" data-parent="#accordion">
+                        <div class="card-body">
+                            <form class="form-signin text-center" action="/logout" method="GET"> 
+                                <button class="btn btn-lg btn-primary btn-block" type="submit">Log Out</button>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+
+
+    <div class="todolist">
+
+        <!-- This seems like a more legit way to do this, but I like how the other way looks better honestly.
+        
+
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="p-2 bd-highlight">
+                <input type="checkbox">
+                <label>Check this custom checkbox</label>
+            </div>
+            <div class="p-2 bd-highlight">
+                <button class="btn btn-outline-secondary" type="button">Claim</button>
+            </div>
+        </div>
+        -->
+        <% for (let item of items) { %>
+            <% if (! item.cleared) { %> 
+        <!-- <%= item %> <br><br> -->
+                <% if (item.owner !== undefined && item.owner !== null) {%>
+                    <% if (username === item.owner.username) { %>
+                    <!-- task you have claimed -->
+                        <% if (item.done === true) { %>
+                        <!-- task you have claimed and finished -->
+                            <%- include ("partials/finished.ejs", {username: username, item: item}) -%>
+
+                        <%} else {%>
+                        <!-- task you have claimed and not finished -->
+                            <%- include ("partials/claimed.ejs", {username: username, item: item}) -%>
+                        <%}%>
+                    <% } else { %>
+                        <!-- task claimed by someone else -->
+                        <% if (item.done === true) { %>
+                            <!-- task complete by someone else and finished-->
+                            <%- include ("partials/completedother.ejs", {item: item}) -%> 
+                        <%} else {%>
+                            <!-- someone else claimed unfinished -->
+                            <%- include ("partials/claimedother.ejs", {item: item}) -%>
+                        <%}%>
+
+                    <% } %>
+                <% } else {%>
+                <!-- unclaimed task-->
+                    <%- include ("partials/unclaimed.ejs", {username: username, item: item}) -%>
+                <% } %>
+            <%}%>
+        <% } %>
+
+
+
+        <!-- submit new task -->
+        <form action="/addtask" method="POST">
+            <input type="hidden" name="username" value="<%= username %>">
+            <div class="input-group mb-3">
+
+                <input type="text" class="form-control" name="newTask" placeholder="Enter a new task here">
+                <div class="input-group-append">
+                    <button class="btn btn-outline-secondary" type="submit">Add</button>
+                </div>
+
+            </div>
+        </form>
+
+        <!-- Purge compelte tasks -->
+        <form action="/purge" method="POST">
+            <input type="hidden" name="username" value="<%= username %>">
+            <div class="d-flex justify-content-center align-items-center">
+                <button class="btn btn-outline-secondary" type="submit">Remove Complete</button>
+            </div>
+        </form>
+        <!--/form-->
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
